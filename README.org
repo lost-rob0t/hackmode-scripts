@@ -1,0 +1,7 @@
+#+TITLE: Readme
+
+* Hack mode scripts
+This is external scripts used by my emacs package hackmode
+
+** parse-nmap.py
+Parse nmap xml output to a more sensible json format
