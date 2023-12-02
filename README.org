@@ -1,0 +1,17 @@
+#+title: Readme
+
+* Hackmode scripts
+These are scripts i use every day, and in conjunction with hackmode.
+
+Its important that you have $HACKMODE_PATH set to your operation dir, its a bad name but this predates hackmode
+
+** tools
++ dir-setup.sh, sets up directorys by date
++ parse-bbot.sh, splits bbot json output into txt files by type
++ photon-scan, scan a bunch of targets
++ dork.sh: bulk dorking with dorkxng
++ use-wordlist: download wordlists to ~/wordlists and save the link
++ bbot.sh simple wrapper around bbot to use the dir system
++ ntfy, simple notifcations with ntfy.
++ nuclei-bulk.sh, wrapper around nuclei
++ bashrc, upload to remote host with limited download functionality/shell.

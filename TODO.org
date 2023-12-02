@@ -1,0 +1,4 @@
+#+title: Todo
+* TODO make simple install script?
+* TODO Make scripts more general
+* TODO make ntfy script more general

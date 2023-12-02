@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# Set default values
+DEFAULT_TOPIC="cli-jobs"
+DEFAULT_PRIORITY="high"
+DEFAULT_TAGS="info"
+
+MSG=!:0
+TITLE="Command Finished: $MSG"
+
+TOPIC="${TOPIC:-$DEFAULT_TOPIC}"
+PRIORITY="${PRIORITY:-$DEFAULT_PRIORITY}"
+TAGS="${TAGS:-$DEFAULT_TAGS}"
+
+# Capture previous command
+
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -t|--topic)
+            TOPIC="$2"
+            shift 2
+            ;;
+        -p|--priority)
+            PRIORITY="$2"
+            shift 2
+            ;;
+        --tags)
+            TAGS="$2"
+            shift 2
+            ;;
+        --msg)
+            MSG="$2"
+            shift 2
+            ;;
+        --title)
+            TITLE="$2"
+            shift 2
+            ;;
+        *)
+            echo "Unknown option: $1"
+            exit 1
+            ;;
+    esac
+done
+# Set values or use defaults
+
+# Construct URL
+URL="http://automation.lost.system:8000/$TOPIC"
+
+# Send the alert using curl
+curl -H "Title: $TITLE" \
+     -H "Priority: $PRIORITY" \
+     -H "Tags: $TAGS" \
+     -d "$MSG" \
+     "$URL"
