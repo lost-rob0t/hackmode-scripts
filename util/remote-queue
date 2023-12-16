@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+[[ $# -eq 0 ]] && echo Usage: $0 ssh host  Command [# of children] [Queue name] && exit
+
+ssh "$1" -c queue "$2" "$3" "$4"

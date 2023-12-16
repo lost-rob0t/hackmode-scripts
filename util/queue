@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+#!/bin/bash
+
+#Print usage
+[[ $# -eq 0 ]] && echo Usage: $0 Command [# of children] [Queue name] && exit
+
+#Param 1 - Command to execute
+COMMAND="$1"
+
+#Param 2 - Number of childs in parallel
+MAXCHILD=1
+[[ $# -gt 1 ]] && MAXCHILD="$2"
+
+#Param 3 - File to be used as FIFO
+FIFO="/tmp/defaultqueue"
+[[ $# -gt 2 ]] && FIFO="$3"
+
+#Number of seconds to keep the runner active when unused
+TIMEOUT=5
+
+runner(){
+  #Associate file descriptor 3 to the FIFO
+  exec 3<>"$FIFO"
+
+  while read -u 3 -t $TIMEOUT line; do
+    #max child check
+    while [ `jobs | grep Running | wc -l` -ge "$MAXCHILD" ]; do
+      sleep 1
+    done
+
+    #exec in backgroud
+    (eval "$line")&
+  done
+  rm $FIFO
+}
+
+writer(){
+  #fork if the runner is not running
+  lsof $FIFO >/dev/null || ($0 "QueueRunner" "$MAXCHILD" "$FIFO" &)
+
+  #send the command to the runner
+  echo "$COMMAND" > $FIFO
+}
+
+#Create the FIFO file
+[[ -e "$FIFO" ]] || mkfifo "$FIFO"
+
+#Start the runner if in the runner fork, else put the command in the queue
+[[ "$COMMAND" == "QueueRunner" ]] && runner || writer
