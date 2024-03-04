@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-searchsploit "$1" | fzf --ansi | cut -d "|" -f 2 | cut -d "/" -f 3 | cut -d "." -f 1 | xargs -I {} searchsploit -m {}

@@ -4,7 +4,7 @@
 FINDINGS="$HACKMODE_PATH/findings"
 while IFS= read -r line; do
     d=$(date +'%Y-%m-%d')
-    echo "$line" | anewer "$FINDINGS/$1.txt" | xargs -I {} echo "$d,{}" | tee -a "$FINDINGS/$1-log.csv" | cut -d "," -f 2 | notify
+    echo "$line" | anewer "$FINDINGS/$1.txt" | xargs -I {} echo "$d,{}" | tee -a "$FINDINGS/$1-log.csv" | cut -d "," -f 2 > /tmp/updated.txt; notify -bulk -duc -data /tmp/updated.txt
 done
 git -C "$HACKMODE_PATH" stage "$FINDINGS/$1.txt"  "$FINDINGS/$1-log.csv"
 git -C "$HACKMODE_PATH" add  "$FINDINGS/$1.txt"  "$FINDINGS/$1-log.csv"
