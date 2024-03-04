@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+## The scans directory is like a append only daily database
+FINDINGS="$HACKMODE_PATH/findings"
+while IFS= read -r line; do
+    d=$(date +'%Y-%m-%d')
+    echo "$line" | anewer "$FINDINGS/$1.txt" | xargs -I {} echo "$d,{}" | tee -a "$FINDINGS/$1-log.csv" | cut -d "," -f 2 | notify
+done
+git -C "$HACKMODE_PATH" stage "$FINDINGS/$1.txt"  "$FINDINGS/$1-log.csv"
+git -C "$HACKMODE_PATH" add  "$FINDINGS/$1.txt"  "$FINDINGS/$1-log.csv"
+git -C "$HACKMODE_PATH" commit -m "updated at $(date). Changed: $1.txt, $1-log.csv"
