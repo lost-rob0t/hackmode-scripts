@@ -91,11 +91,12 @@ function install_source() {
     chmod +x $HOME/.local/bin/*
 }
 
-function install_nixos() function install_source() {
+function install_source() {
     find ./source/ -type f | xargs -I {} cp {} "$HOME/.local/bin/{}"
     chmod +x $HOME/.local/bin/*
 }
 
+function install_nixos()
 {
     echo "Installing Nixos...."
     curl --output /tmp/nixos.sh https://nixos.org/nix/install
