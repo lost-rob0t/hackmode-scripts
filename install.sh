@@ -121,3 +121,7 @@ function full_install() {
 function update() {
     git pull && install_source
 }
+
+install_source
+install_bashrc
+install_config
