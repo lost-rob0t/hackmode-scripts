@@ -1,0 +1,15 @@
+% Fact types
+web_service(X, Y) % X is the thing like wordpress, Y its the identifer to find it
+service_header(X, Y) % same thing above but for headers
+service_url(X, Y)
+service_dom(X, Y)    % same as above
+header(U, K, V)      % X is the the service, Y is the header key, V is the value
+url_status(U, S), % X is the url, S is the status
+request(U, Q, M, S) % Url, query params, Method, Status code
+response(U, Q, M, S) % same as above
+% One can think of each fact (the thigns above) as a table in SQL
+% A join is a relation between facts and is called a RULE
+% , is a AND
+% ; is a OR
+
+service(X, Y) :- web_service(X, Y), service_header(X, Y) ; service_url(X, Y)

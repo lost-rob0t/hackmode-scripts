@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# TODO add option to create a year archive
+archive_dir="$1"
+extract_dir="$2"
+selected_archive=$(find "$archive_dir" -type f -name '*' | fzf --prompt='Select an archive: ')
+if [ -n "$selected_archive" ]; then
+    selected_files=$(tar -I zstd -tf "$selected_archive" | fzf --multi --prompt='Select files to extract: ')
+
+    if [ -n "$selected_files" ]; then
+        tar -I zstd -xf "$selected_archive" -C "$extract_dir" $selected_files
+        echo "Files extracted successfully."
+    else
+        echo "No files selected for extraction."
+    fi
+else
+    echo "No archive selected."
+fi

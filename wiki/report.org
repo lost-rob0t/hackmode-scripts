@@ -1,0 +1,13 @@
+#+title: Report
+
+
+* Report
+The Report script will read from stdin and use notify.
+
+it will also use git to track additions, and save to a csv. date,line
+
+usage:
+#+Name: report
+#+begin_src shell :async :results output replace
+cat subdomains.txt | report "subdomains"
+#+end_src

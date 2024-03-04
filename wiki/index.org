@@ -1,0 +1,15 @@
+#+title: Index
+
+
+* The Hackmode Wiki
+
+Hackmode is a general framework of ideas, but mostly circles around make the most use out of data.
+
+* Tools
++ Reporting file:./report.org
+
+* Big ideas
+** why the directories
+The Directories serve as a daily log of scans for each tool.
+
+You need to save All the recon.
